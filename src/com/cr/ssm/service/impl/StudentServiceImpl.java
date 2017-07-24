@@ -83,4 +83,12 @@ public class StudentServiceImpl implements IStudentService{
 		return studentDao.findByNameAndPassword(map);
 	}
 
+	@Override
+	public void deleteAll(int[] ids) {
+		for (int id : ids) {
+		studentDao.delete(String.valueOf(id));
+	}
+		
+	}
+
 }

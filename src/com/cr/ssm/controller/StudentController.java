@@ -58,6 +58,16 @@ public class StudentController {
 		return "redirect:pageList.action";
 	}
 	
+	@RequestMapping(value="/deleteAll")
+	public String deleteAll(int[] selectIds) {
+	    for (int id : selectIds) {
+	       System.out.println(id);
+	    }
+	    
+	    studentService.deleteAll(selectIds);
+	    return "redirect:/student/pageList.action";
+	}
+
 	@RequestMapping(value = "/toUpdate")
 	public String toUpdete(String id, Model model){
 		Student student = studentService.findById(id);

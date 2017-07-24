@@ -22,4 +22,6 @@ public interface IStudentService {
 			SearchByStudentCondition searchByStudentCondition);
 
 	public Student findByNameAndPassword(Map<String, String> map);
+
+	public void deleteAll(int[] selectIds);
 }
