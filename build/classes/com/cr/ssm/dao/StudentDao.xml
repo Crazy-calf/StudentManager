@@ -3,6 +3,100 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cr.ssm.dao.StudentDao">
-	<select id="add"></select>
+
+<!-- 	<resultMap type="Student" id="studentFindPageBeanMap">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="age" column="age"/>
+		<result property="gender" column="gender"/>
+		<result property="address" column="address"/>
+		<result property="birthday" column="birthday"/>
+
+		<association property="clazz" javaType="Clazz">
+			<id property="id" column="classId"/>
+			<result property="name" column="className"/>
+		</association>		
+	</resultMap>
+	
+	<select id="findPageBean" resultMap="studentFindPageBeanMap">
+		SELECT s.id,s.name,s.password,s.age,s.gender,s.address,s.birthday,c.name AS className 
+		FROM student AS s INNER JOIN class AS c ON s.class_id=c.id 
+		limit #{pageIndex}, #{pageSize};
+	</select>
+	 -->
+	<select id="findPageBean" resultType="Student">
+		SELECT * FROM student limit #{pageIndex}, #{pageSize};
+	</select>
+	
+	<select id="findByNameAndPassword"  resultType="Student">
+		select * from student where name=#{name} and password=#{password};
+	</select>
+	
+<!-- 	<select id="findById" parameterType="integer" >
+		SELECT s.id,s.name,s.password,s.age,s.gender,s.address,s.birthday,c.NAME AS className 
+		FROM student AS s INNER JOIN class AS c ON s.class_id=c.id 
+		where id=#{id}
+	</select> -->
+	
+	<select id="findById" parameterType="String" resultType="Student">
+		SELECT * FROM student where id=#{id}
+	</select>
+	
+	<select id="getTotalCount" resultType="integer">
+		select count(*) from student;
+	</select>
+	
+	<select id="getSearchTotalCount" parameterType="com.cr.vo.SearchByStudentCondition" resultType="integer">
+		select count(*) from student 
+		<where>
+			<if test="name!=null and name!=''">
+				and name like '%${name}%'
+			</if>
+			<if test="age!=null and age!=''">
+				and age = #{age}
+			</if>
+			<if test="gender!=null and gender!=''">
+				and gender = #{gender}
+			</if>
+			<if test="address!=null and address!=''">
+				and address = #{address}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="add" parameterType="Student">
+		INSERT INTO student(NAME, password, age, gender, address, birthday) 
+		VALUE (#{name},#{password},#{age},#{gender},#{address},#{birthday});
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM student WHERE id=#{id};
+	</delete>
+	
+	<update id="update" parameterType="Student">
+		UPDATE student SET 
+		NAME=#{name},password=#{password},age=#{age},gender=#{gender},address=#{address},birthday=#{birthday}
+		WHERE id=#{id};
+	</update>
+	
+	<select id="searchByCondition" parameterType="com.cr.vo.SearchByStudentCondition" resultType="Student">
+		select * from student
+		<where>
+			<if test="name!=null and name!=''">
+				and name like '%${name}%'
+			</if>
+			<if test="age!=null and age!=''">
+				and age = #{age}
+			</if>
+			<if test="gender!=null and gender!=''">
+				and gender = #{gender}
+			</if>
+			<if test="address!=null and address!=''">
+				and address = #{address}
+			</if>
+		</where>
+		limit #{pageIndex}, #{pageSize}
+	</select>
 	
 </mapper>

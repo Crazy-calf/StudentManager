@@ -3,7 +3,7 @@ package com.cr.ssm.entity;
 import java.util.List;
 
 public class Clazz {
-	private int id;
+	private Integer id;
 	private String name;
 	
 	private List<Student> studentList;

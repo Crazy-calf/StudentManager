@@ -10,7 +10,7 @@ public class Student {
 	private String gender;
 	private String address;
 	private Date birthday;
-	private Clazz clazz;
+	/*private Clazz clazz;
 	
 	
 	
@@ -20,7 +20,7 @@ public class Student {
 
 	public void setClazz(Clazz clazz) {
 		this.clazz = clazz;
-	}
+	}*/
 
 	public void setId(Integer id) {
 		this.id = id;

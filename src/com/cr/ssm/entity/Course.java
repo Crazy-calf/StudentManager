@@ -1,9 +1,9 @@
 package com.cr.ssm.entity;
 
 public class Course {
-	private int id;
+	private Integer id;
 	private String name;
-	private int credit;
+	private Integer credit;
 	
 	private Clazz clazz;
 	
